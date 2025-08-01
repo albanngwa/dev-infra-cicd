@@ -24,7 +24,7 @@ pipeline {
             steps {
                 dir("${TF_DIR}") {
                     sh 'terraform validate'
-                    sh 'terraform fmt -check'
+                    sh 'terraform fmt -recursive'
                 }
             }
         }
