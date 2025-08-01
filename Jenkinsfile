@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/albanngwa/dev-infra-cicd.git'
+                git branch 'main' url: 'https://github.com/albanngwa/dev-infra-cicd.git'
             }
         }
 
