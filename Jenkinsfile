@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch 'main' url: 'https://github.com/albanngwa/dev-infra-cicd.git'
+                git branch: 'main', url: 'https://github.com/albanngwa/dev-infra-cicd.git'
             }
         }
 
@@ -32,11 +32,17 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 dir("${TF_DIR}") {
-                    withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    withCredentials([
+                        usernamePassword(
+                            credentialsId: 'aws-creds',
+                            usernameVariable: 'AWS_ACCESS_KEY_ID',
+                            passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                        )
+                    ]) {
                         sh '''
-              terraform plan \
-                -var="region=us-east-2"
-            '''
+                            terraform plan \
+                              -var="region=us-east-2"
+                        '''
                     }
                 }
             }
@@ -52,20 +58,19 @@ pipeline {
     }
 }
 
-/* groovylint-disable-next-line MethodReturnTypeRequired, NoDef */
 def runTerraformApply() {
-    dir("${TF_DIR}") {
+    dir("terraform") {
         withCredentials([
-      usernamePassword(
-        credentialsId: 'aws-creds',
-        usernameVariable: 'AWS_ACCESS_KEY_ID',
-        passwordVariable: 'AWS_SECRET_ACCESS_KEY'
-      )
-    ]) {
+            usernamePassword(
+                credentialsId: 'aws-creds',
+                usernameVariable: 'AWS_ACCESS_KEY_ID',
+                passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+            )
+        ]) {
             sh '''
-        terraform apply -auto-approve \
-          -var="region=us-east-2"
-      '''
-    }
+                terraform apply -auto-approve \
+                  -var="region=us-east-2"
+            '''
+        }
     }
 }
