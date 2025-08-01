@@ -1,3 +1,3 @@
 output "bucket_name" {
-  value = dev-infra-cicd-bucket2025
+  value = aws_s3_bucket.dev_bucket.bucket
 }
