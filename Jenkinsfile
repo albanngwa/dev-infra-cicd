@@ -93,5 +93,4 @@ pipeline {
             echo 'Terraform apply failed'
         }
     }
-
 }
