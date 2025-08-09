@@ -87,7 +87,7 @@ pipeline {
             echo 'Pipeline complete.'
         }
         success {
-            echo 'Terraform apply succeeded'
+            echo 'Terraform apply has succeeded'
         }
         failure {
             echo 'Terraform apply failed'
