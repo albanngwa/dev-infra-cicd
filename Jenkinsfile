@@ -74,8 +74,8 @@ pipeline {
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
+                    input message: 'Approve Terraform Apply?', ok: 'Apply'
                     dir("${TF_WORKING_DIR}") {
-                        input message: 'Approve Terraform Apply?', ok: 'Apply'
                         sh 'terraform apply -auto-approve -var-file=terraform.tfvars'
                     }
                 }
